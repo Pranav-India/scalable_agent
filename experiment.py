@@ -459,7 +459,7 @@ def pin_global_variables(device):
 def train(action_set, level_names):
   """Train."""
 
-  if is_single_machine():
+  if is_single_machine(): #returns ture or false based on the task flag (true if task == -1) 
     local_job_device = ''
     shared_job_device = ''
     is_actor_fn = lambda i: True
@@ -682,15 +682,15 @@ def test(action_set, level_names):
 def main(_):
   tf.logging.set_verbosity(tf.logging.INFO)
 
-  action_set = environments.DEFAULT_ACTION_SET
-  if FLAGS.level_name == 'dmlab30' and FLAGS.mode == 'train':
+  action_set = environments.DEFAULT_ACTION_SET #received action set from environmnet
+  if FLAGS.level_name == 'dmlab30' and FLAGS.mode == 'train': #default is train
     level_names = dmlab30.LEVEL_MAPPING.keys()
-  elif FLAGS.level_name == 'dmlab30' and FLAGS.mode == 'test':
+  elif FLAGS.level_name == 'dmlab30' and FLAGS.mode == 'test': #default is train
     level_names = dmlab30.LEVEL_MAPPING.values()
   else:
     level_names = [FLAGS.level_name]
 
-  if FLAGS.mode == 'train':
+  if FLAGS.mode == 'train': #default is train
     train(action_set, level_names)
   else:
     test(action_set, level_names)
